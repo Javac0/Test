@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="第 1 页" id="XPtq-Buu6HZ8uz3qJOFS">
-    <mxGraphModel dx="1704" dy="1047" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1491" dy="916" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -292,12 +292,7 @@
         </UserObject>
         <UserObject label="开始 · 合作出口业务" mermaidId="n:START" mermaidBaseStyle="html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#0f172a;strokeColor=#1e293b;fontColor=#fff;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;fontStyle=1;" mermaidBaseValue="开始 · 合作出口业务" id="qRz5WPGjfO86WkayBmkP-47">
           <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#0f172a;strokeColor=#1e293b;fontColor=#fff;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;fontStyle=1;" vertex="1">
-            <mxGeometry height="39" width="168" x="2333" y="40" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="合作方结算方式维护&#xa;（结算方式 / 预付比例 / 费用额度）" mermaidId="n:CFG" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="合作方结算方式维护&#xa;（结算方式 / 预付比例 / 费用额度）" id="qRz5WPGjfO86WkayBmkP-48">
-          <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
-            <mxGeometry height="73" width="320" x="2257" y="129" as="geometry" />
+            <mxGeometry height="39" width="168" x="2340" y="160" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="全流程闭环 · 单证 / 发票 / 资金 / 结算 全部落地" mermaidId="n:DONE" mermaidBaseStyle="html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#0f172a;strokeColor=#1e293b;fontColor=#fff;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;fontStyle=1;" mermaidBaseValue="全流程闭环 · 单证 / 发票 / 资金 / 结算 全部落地" id="qRz5WPGjfO86WkayBmkP-49">
@@ -305,17 +300,11 @@
             <mxGeometry height="39" width="370" x="352" y="1877" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="" mermaidId="e:START-&gt;CFG#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-50">
-          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-47" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-48">
-            <mxGeometry relative="1" as="geometry">
-              <Array as="points" />
-            </mxGeometry>
-          </mxCell>
-        </UserObject>
         <UserObject label="" mermaidId="e:CFG-&gt;SHIP1#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-51">
-          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-48" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-3">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-3">
             <mxGeometry relative="1" as="geometry">
               <Array as="points" />
+              <mxPoint x="2417" y="202" as="sourcePoint" />
             </mxGeometry>
           </mxCell>
         </UserObject>
