@@ -1,0 +1,449 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="第 1 页" id="XPtq-Buu6HZ8uz3qJOFS">
+    <mxGraphModel dx="1704" dy="1047" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&#xa;  &quot;data&quot;: &quot;%%{ init: { &#39;themeVariables&#39;: { &#39;fontFamily&#39;: &#39;Microsoft YaHei, PingFang SC, Hiragino Sans GB, sans-serif&#39; } } }%%\nflowchart TD\nclassDef startend fill:#0f172a,color:#fff,stroke:#1e293b,stroke-width:2px,font-weight:700\nclassDef manual fill:#eff6ff,stroke:#2563eb,color:#1e3a8a,stroke-width:1.5px\nclassDef auto fill:#f0fdfa,stroke:#0d9488,color:#065f46,stroke-width:1.5px,stroke-dasharray:5 3\nclassDef ctrl fill:#fffbeb,stroke:#d97706,color:#92400e,stroke-width:2px\nclassDef ext fill:#f5f3ff,stroke:#7c3aed,color:#5b21b6,stroke-width:1.5px\nclassDef flow fill:#f1f5f9,stroke:#475569,color:#334155,stroke-width:1.5px\nclassDef dec fill:#fff1f2,stroke:#be123c,color:#9f1239,stroke-width:2px\nSTART([\&quot;开始 · 合作出口业务\&quot;]):::startend\nCFG[\&quot;合作方结算方式维护&lt;br/&gt;（结算方式 / 预付比例 / 费用额度）\&quot;]:::flow\nSTART --&gt; CFG\nsubgraph P1[\&quot;阶段 1 · 出运管理 —— 业务起点\&quot;]\n  SHIP1[\&quot;手工新建【合作出口出运单】&lt;br/&gt;录入 销售主信息(1份) + 国内采购(多条)\&quot;]:::manual\n  SHIP2[\&quot;《提交》生效&lt;br/&gt;出运单:审批单:销合同:采合同 = 1:1:1:N\&quot;]:::manual\n  A1[\&quot;合同审批单(销售)\&quot;]:::auto\n  A2[\&quot;销售合同\&quot;]:::auto\n  A3[\&quot;采购合同 1:N\&quot;]:::auto\n  A4[\&quot;采购入仓单\&quot;]:::auto\n  A5[\&quot;销售出仓单\&quot;]:::auto\n  SHIP1 --&gt; SHIP2\n  SHIP2 -. 系统自动生成 .-&gt; A1\n  SHIP2 -.-&gt; A2 &amp; A3 &amp; A4 &amp; A5\nend\nCFG --&gt; SHIP1\nsubgraph P2[\&quot;阶段 2 · 单证管理 —— 报关\&quot;]\n  DRAFT[\&quot;拷贝【出运单】→ 出口报关草单&lt;br/&gt;《生成报关商品》→ 报关单证\&quot;]:::manual\n  WIN[\&quot;单一窗口《获取报关单》&lt;br/&gt;出口电子报关单\&quot;]:::ext\n  GATE{{\&quot;★ 关键控制点 · 认领报关单&lt;br/&gt;须 已结关 + 有出口日期 + 金额/数量一致\&quot;}}:::ctrl\n  DRAFT --&gt; WIN --&gt; GATE\nend\nSHIP2 --&gt; DRAFT\nsubgraph P3[\&quot;阶段 3 · 发票管理\&quot;]\n  PINV[\&quot;出口国内采购发票&lt;br/&gt;（拷贝出运单拣配明细）\&quot;]:::manual\n  SINV[\&quot;出口销售发票&lt;br/&gt;⚠ 前置:须认领报关单\&quot;]:::manual\n  FINV[\&quot;出口费用发票&lt;br/&gt;（非货款类费用）\&quot;]:::manual\n  AP[\&quot;生效 → 成本认定 + 应付往来&lt;br/&gt;→《生成付款单》\&quot;]:::flow\n  AR[\&quot;生效 → 应收往来\&quot;]:::flow\n  APE[\&quot;生效 → 应付往来&lt;br/&gt;→ 付款申请单\&quot;]:::flow\n  PINV --&gt; AP\n  SINV --&gt; AR\n  FINV --&gt; APE\nend\nGATE --&gt; PINV &amp; SINV &amp; FINV\nsubgraph P4[\&quot;阶段 4 · 资金收付\&quot;]\n  REC[\&quot;境外收款登记&lt;br/&gt;→ 自动生成收款认领单\&quot;]:::manual\n  RCLAIM[\&quot;境外收款认领&lt;br/&gt;拆分认定到 合同/结算单/销售发票\&quot;]:::manual\n  PAY[\&quot;付款申请单&lt;br/&gt;→ 财务支付工作台 → 出纳支付\&quot;]:::manual\n  REC --&gt; RCLAIM\nend\nAP -.-&gt; PAY\nAPE -.-&gt; PAY\nAR -. 应收认定 .-&gt; RCLAIM\nsubgraph P5[\&quot;阶段 5 · 结算管理 —— 成本与利润核算\&quot;]\n  SETT[\&quot;拷贝【出运单】→ 出口结算单&lt;br/&gt;⚠ 前置:须认领报关单\&quot;]:::manual\n  DEC{{\&quot;选择结算方案\&quot;}}:::dec\n  SA[\&quot;方案 A 固定收汇-算厂价&lt;br/&gt;生效: 改采购合同版本 + 预收款冲销单\&quot;]:::manual\n  SB[\&quot;方案 B 固定厂价-算耗汇&lt;br/&gt;生效: 系统无后续处理\&quot;]:::manual\n  SC[\&quot;方案 C 固定厂价-固定收汇&lt;br/&gt;生效: 结算盈余往来 + 预收款冲销单\&quot;]:::manual\n  SETT --&gt; DEC\n  DEC --&gt;|方案 A| SA\n  DEC --&gt;|方案 B| SB\n  DEC --&gt;|方案 C| SC\nend\nRCLAIM -. 耗汇数据 .-&gt; SETT\nDONE([\&quot;全流程闭环 · 单证 / 发票 / 资金 / 结算 全部落地\&quot;]):::startend\nPAY --&gt; DONE\nSA &amp; SB &amp; SC --&gt; DONE&quot;,&#xa;  &quot;config&quot;: null&#xa;}" id="qRz5WPGjfO86WkayBmkP-1">
+          <mxCell connectable="0" parent="1" style="group;transparentBounds=1;editIcon=1;lockedGroup=0;groupPadding=20;" vertex="1">
+            <mxGeometry as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="阶段 1 · 出运管理 —— 业务起点" mermaidId="n:P1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="阶段 1 · 出运管理 —— 业务起点" id="qRz5WPGjfO86WkayBmkP-2">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="424" width="1011" x="2024" y="240" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="手工新建【合作出口出运单】&#xa;录入 销售主信息(1份) + 国内采购(多条)" mermaidId="n:SHIP1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="手工新建【合作出口出运单】&#xa;录入 销售主信息(1份) + 国内采购(多条)" id="qRz5WPGjfO86WkayBmkP-3">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-2" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="339" x="224" y="45" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="《提交》生效&#xa;出运单:审批单:销合同:采合同 = 1:1:1:N" mermaidId="n:SHIP2" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="《提交》生效&#xa;出运单:审批单:销合同:采合同 = 1:1:1:N" id="qRz5WPGjfO86WkayBmkP-4">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-2" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="341" x="223" y="168" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="合同审批单(销售)" mermaidId="n:A1" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" mermaidBaseValue="合同审批单(销售)" id="qRz5WPGjfO86WkayBmkP-5">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-2" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" vertex="1">
+            <mxGeometry height="54" width="184" x="792" y="345" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="销售合同" mermaidId="n:A2" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" mermaidBaseValue="销售合同" id="qRz5WPGjfO86WkayBmkP-6">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-2" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" vertex="1">
+            <mxGeometry height="54" width="124" x="618" y="345" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="采购合同 1:N" mermaidId="n:A3" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" mermaidBaseValue="采购合同 1:N" id="qRz5WPGjfO86WkayBmkP-7">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-2" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" vertex="1">
+            <mxGeometry height="54" width="153" x="415" y="345" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="采购入仓单" mermaidId="n:A4" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" mermaidBaseValue="采购入仓单" id="qRz5WPGjfO86WkayBmkP-8">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-2" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" vertex="1">
+            <mxGeometry height="54" width="140" x="225" y="345" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="销售出仓单" mermaidId="n:A5" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" mermaidBaseValue="销售出仓单" id="qRz5WPGjfO86WkayBmkP-9">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-2" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f0fdfa;strokeColor=#0d9488;fontColor=#065f46;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;dashed=1;dashPattern=5 3;fixDash=1;" vertex="1">
+            <mxGeometry height="54" width="140" x="35" y="345" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SHIP1-&gt;SHIP2#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-10">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-2" source="qRz5WPGjfO86WkayBmkP-3" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-4">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="系统自动生成" mermaidId="e:SHIP2-&gt;A1#0" mermaidBaseStyle="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.84;entryX=0.5;entryY=0;" mermaidBaseValue="系统自动生成" id="qRz5WPGjfO86WkayBmkP-11">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-2" source="qRz5WPGjfO86WkayBmkP-4" style="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.84;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-5">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="884" y="276" />
+                <mxPoint x="884" y="310" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SHIP2-&gt;A2#0" mermaidBaseStyle="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.93;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-12">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-2" source="qRz5WPGjfO86WkayBmkP-4" style="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.93;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-6">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="680" y="276" />
+                <mxPoint x="680" y="310" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SHIP2-&gt;A3#0" mermaidBaseStyle="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.65;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-13">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-2" source="qRz5WPGjfO86WkayBmkP-4" style="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.65;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-7">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="492" y="276" />
+                <mxPoint x="492" y="310" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SHIP2-&gt;A4#0" mermaidBaseStyle="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.35;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-14">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-2" source="qRz5WPGjfO86WkayBmkP-4" style="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.35;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-8">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="295" y="276" />
+                <mxPoint x="295" y="310" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SHIP2-&gt;A5#0" mermaidBaseStyle="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.06;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-15">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-2" source="qRz5WPGjfO86WkayBmkP-4" style="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.06;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-9">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="105" y="276" />
+                <mxPoint x="105" y="310" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="阶段 2 · 单证管理 —— 报关" mermaidId="n:P2" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="阶段 2 · 单证管理 —— 报关" id="qRz5WPGjfO86WkayBmkP-16">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="394" width="393" x="1495" y="522" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="拷贝【出运单】→ 出口报关草单&#xa;《生成报关商品》→ 报关单证" mermaidId="n:DRAFT" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="拷贝【出运单】→ 出口报关草单&#xa;《生成报关商品》→ 报关单证" id="qRz5WPGjfO86WkayBmkP-17">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-16" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="289" x="52" y="45" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="单一窗口《获取报关单》&#xa;出口电子报关单" mermaidId="n:WIN" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f5f3ff;strokeColor=#7c3aed;fontColor=#5b21b6;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="单一窗口《获取报关单》&#xa;出口电子报关单" id="qRz5WPGjfO86WkayBmkP-18">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-16" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f5f3ff;strokeColor=#7c3aed;fontColor=#5b21b6;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="236" x="78" y="193" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="★ 关键控制点 · 认领报关单&#xa;须 已结关 + 有出口日期 + 金额/数量一致" mermaidId="n:GATE" mermaidBaseStyle="html=1;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;size=13.25;strokeWidth=2;whiteSpace=wrap;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#92400e;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="★ 关键控制点 · 认领报关单&#xa;须 已结关 + 有出口日期 + 金额/数量一致" id="qRz5WPGjfO86WkayBmkP-19">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-16" style="html=1;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;size=13.25;strokeWidth=2;whiteSpace=wrap;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#92400e;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="53" width="323" x="35" y="316" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:DRAFT-&gt;WIN#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-20">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-16" source="qRz5WPGjfO86WkayBmkP-17" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-18">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:WIN-&gt;GATE#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-21">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-16" source="qRz5WPGjfO86WkayBmkP-18" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-19">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="阶段 3 · 发票管理" mermaidId="n:P3" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="阶段 3 · 发票管理" id="qRz5WPGjfO86WkayBmkP-22">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="291" width="834" x="1297" y="946" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="出口国内采购发票&#xa;（拷贝出运单拣配明细）" mermaidId="n:PINV" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="出口国内采购发票&#xa;（拷贝出运单拣配明细）" id="qRz5WPGjfO86WkayBmkP-23">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-22" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="236" x="549" y="45" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="出口销售发票&#xa;⚠ 前置:须认领报关单" mermaidId="n:SINV" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="出口销售发票&#xa;⚠ 前置:须认领报关单" id="qRz5WPGjfO86WkayBmkP-24">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-22" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="215" x="35" y="45" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="出口费用发票&#xa;（非货款类费用）" mermaidId="n:FINV" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="出口费用发票&#xa;（非货款类费用）" id="qRz5WPGjfO86WkayBmkP-25">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-22" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="188" x="300" y="45" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="生效 → 成本认定 + 应付往来&#xa;→《生成付款单》" mermaidId="n:AP" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="生效 → 成本认定 + 应付往来&#xa;→《生成付款单》" id="qRz5WPGjfO86WkayBmkP-26">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-22" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="264" x="535" y="193" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="生效 → 应收往来" mermaidId="n:AR" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="生效 → 应收往来" id="qRz5WPGjfO86WkayBmkP-27">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-22" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="54" width="182" x="52" y="203" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="生效 → 应付往来&#xa;→ 付款申请单" mermaidId="n:APE" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="生效 → 应付往来&#xa;→ 付款申请单" id="qRz5WPGjfO86WkayBmkP-28">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-22" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="182" x="303" y="193" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:PINV-&gt;AP#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-29">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-22" source="qRz5WPGjfO86WkayBmkP-23" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-26">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SINV-&gt;AR#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-30">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-22" source="qRz5WPGjfO86WkayBmkP-24" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-27">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:FINV-&gt;APE#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-31">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-22" source="qRz5WPGjfO86WkayBmkP-25" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-28">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="阶段 4 · 资金收付" mermaidId="n:P4" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="阶段 4 · 资金收付" id="qRz5WPGjfO86WkayBmkP-32">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="310" width="939" x="338" y="1094" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="境外收款登记&#xa;→ 自动生成收款认领单" mermaidId="n:REC" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="境外收款登记&#xa;→ 自动生成收款认领单" id="qRz5WPGjfO86WkayBmkP-33">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-32" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="225" x="35" y="45" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="境外收款认领&#xa;拆分认定到 合同/结算单/销售发票" mermaidId="n:RCLAIM" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="境外收款认领&#xa;拆分认定到 合同/结算单/销售发票" id="qRz5WPGjfO86WkayBmkP-34">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-32" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="306" x="46" y="212" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="付款申请单&#xa;→ 财务支付工作台 → 出纳支付" mermaidId="n:PAY" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="付款申请单&#xa;→ 财务支付工作台 → 出纳支付" id="qRz5WPGjfO86WkayBmkP-35">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-32" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="282" x="622" y="212" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:REC-&gt;RCLAIM#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.42;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-36">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-32" source="qRz5WPGjfO86WkayBmkP-33" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.42;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-34">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="147" y="143" />
+                <mxPoint x="147" y="178" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="阶段 5 · 结算管理 —— 成本与利润核算" mermaidId="n:P5" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="阶段 5 · 结算管理 —— 成本与利润核算" id="qRz5WPGjfO86WkayBmkP-37">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="374" width="1041" x="40" y="1453" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="拷贝【出运单】→ 出口结算单&#xa;⚠ 前置:须认领报关单" mermaidId="n:SETT" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="拷贝【出运单】→ 出口结算单&#xa;⚠ 前置:须认领报关单" id="qRz5WPGjfO86WkayBmkP-38">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-37" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="273" x="361" y="45" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="选择结算方案" mermaidId="n:DEC" mermaidBaseStyle="html=1;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;size=9.75;strokeWidth=2;whiteSpace=wrap;fillColor=#fff1f2;strokeColor=#be123c;fontColor=#9f1239;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="选择结算方案" id="qRz5WPGjfO86WkayBmkP-39">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-37" style="html=1;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;size=9.75;strokeWidth=2;whiteSpace=wrap;fillColor=#fff1f2;strokeColor=#be123c;fontColor=#9f1239;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="39" width="130" x="432" y="168" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="方案 A 固定收汇-算厂价&#xa;生效: 改采购合同版本 + 预收款冲销单" mermaidId="n:SA" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="方案 A 固定收汇-算厂价&#xa;生效: 改采购合同版本 + 预收款冲销单" id="qRz5WPGjfO86WkayBmkP-40">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-37" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="329" x="677" y="276" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="方案 B 固定厂价-算耗汇&#xa;生效: 系统无后续处理" mermaidId="n:SB" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="方案 B 固定厂价-算耗汇&#xa;生效: 系统无后续处理" id="qRz5WPGjfO86WkayBmkP-41">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-37" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="229" x="398" y="276" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="方案 C 固定厂价-固定收汇&#xa;生效: 结算盈余往来 + 预收款冲销单" mermaidId="n:SC" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="方案 C 固定厂价-固定收汇&#xa;生效: 结算盈余往来 + 预收款冲销单" id="qRz5WPGjfO86WkayBmkP-42">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-37" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="313" x="35" y="276" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SETT-&gt;DEC#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-43">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-37" source="qRz5WPGjfO86WkayBmkP-38" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-39">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="方案 A" mermaidId="e:DEC-&gt;SA#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.77;entryX=0.5;entryY=0;" mermaidBaseValue="方案 A" id="qRz5WPGjfO86WkayBmkP-44">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-37" source="qRz5WPGjfO86WkayBmkP-39" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.77;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-40">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="842" y="242" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="方案 B" mermaidId="e:DEC-&gt;SB#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=0.55;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="方案 B" id="qRz5WPGjfO86WkayBmkP-45">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-37" source="qRz5WPGjfO86WkayBmkP-39" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=0.55;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-41">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="513" y="242" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="方案 C" mermaidId="e:DEC-&gt;SC#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=0;exitY=0.79;entryX=0.5;entryY=0;" mermaidBaseValue="方案 C" id="qRz5WPGjfO86WkayBmkP-46">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-37" source="qRz5WPGjfO86WkayBmkP-39" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=0;exitY=0.79;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-42">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="192" y="242" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="开始 · 合作出口业务" mermaidId="n:START" mermaidBaseStyle="html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#0f172a;strokeColor=#1e293b;fontColor=#fff;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;fontStyle=1;" mermaidBaseValue="开始 · 合作出口业务" id="qRz5WPGjfO86WkayBmkP-47">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#0f172a;strokeColor=#1e293b;fontColor=#fff;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;fontStyle=1;" vertex="1">
+            <mxGeometry height="39" width="168" x="2333" y="40" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="合作方结算方式维护&#xa;（结算方式 / 预付比例 / 费用额度）" mermaidId="n:CFG" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="合作方结算方式维护&#xa;（结算方式 / 预付比例 / 费用额度）" id="qRz5WPGjfO86WkayBmkP-48">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;whiteSpace=wrap;strokeWidth=1.5;fillColor=#f1f5f9;strokeColor=#475569;fontColor=#334155;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="320" x="2257" y="129" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="全流程闭环 · 单证 / 发票 / 资金 / 结算 全部落地" mermaidId="n:DONE" mermaidBaseStyle="html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#0f172a;strokeColor=#1e293b;fontColor=#fff;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;fontStyle=1;" mermaidBaseValue="全流程闭环 · 单证 / 发票 / 资金 / 结算 全部落地" id="qRz5WPGjfO86WkayBmkP-49">
+          <mxCell parent="qRz5WPGjfO86WkayBmkP-1" style="html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#0f172a;strokeColor=#1e293b;fontColor=#fff;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;fontStyle=1;" vertex="1">
+            <mxGeometry height="39" width="370" x="352" y="1877" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:START-&gt;CFG#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-50">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-47" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-48">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:CFG-&gt;SHIP1#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-51">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-48" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-3">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SHIP2-&gt;DRAFT#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0;exitY=0.99;entryX=1;entryY=0.18;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-52">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-4" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0;exitY=0.99;entryX=1;entryY=0.18;rounded=0;" target="qRz5WPGjfO86WkayBmkP-17">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="2077" y="508" />
+                <mxPoint x="2077" y="542" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:GATE-&gt;PINV#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.93;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-53">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-19" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.93;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-23">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="1964" y="916" />
+                <mxPoint x="1964" y="941" />
+                <mxPoint x="1964" y="966" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:GATE-&gt;SINV#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.1;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-54">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-19" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.1;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-24">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="1440" y="916" />
+                <mxPoint x="1440" y="941" />
+                <mxPoint x="1440" y="966" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:GATE-&gt;FINV#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-55">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-19" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-25">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:AP-&gt;PAY#0" mermaidBaseStyle="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.64;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-56">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-26" style="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.64;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-35">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="1964" y="1237" />
+                <mxPoint x="1179" y="1272" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:APE-&gt;PAY#0" mermaidBaseStyle="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.05;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-57">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-28" style="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.05;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-35">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="1691" y="1237" />
+                <mxPoint x="853" y="1272" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="应收认定" mermaidId="e:AR-&gt;RCLAIM#0" mermaidBaseStyle="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.94;entryY=0;" mermaidBaseValue="应收认定" id="qRz5WPGjfO86WkayBmkP-58">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-27" style="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.94;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-34">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="1440" y="1237" />
+                <mxPoint x="801" y="1272" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="耗汇数据" mermaidId="e:RCLAIM-&gt;SETT#0" mermaidBaseStyle="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="耗汇数据" id="qRz5WPGjfO86WkayBmkP-59">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-34" style="curved=1;dashed=1;dashPattern=2 3;fixDash=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);html=1;fontSize=16;labelBackgroundColor=light-dark(#E8E8E88D,#2a2a2a8D);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-38">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:PAY-&gt;DONE#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=1;entryY=0.13;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-60">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-35" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=1;entryY=0.13;rounded=0;" target="qRz5WPGjfO86WkayBmkP-49">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="1101" y="1404" />
+                <mxPoint x="1101" y="1439" />
+                <mxPoint x="1101" y="1473" />
+                <mxPoint x="1101" y="1535" />
+                <mxPoint x="1101" y="1596" />
+                <mxPoint x="1101" y="1641" />
+                <mxPoint x="1101" y="1695" />
+                <mxPoint x="1101" y="1766" />
+                <mxPoint x="1101" y="1827" />
+                <mxPoint x="1101" y="1852" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SA-&gt;DONE#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.91;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-61">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-40" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.91;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-49">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="882" y="1827" />
+                <mxPoint x="882" y="1852" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SB-&gt;DONE#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.52;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-62">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-41" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.52;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-49">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="553" y="1827" />
+                <mxPoint x="553" y="1852" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:SC-&gt;DONE#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.14;entryY=0;" mermaidBaseValue="" id="qRz5WPGjfO86WkayBmkP-63">
+          <mxCell edge="1" parent="qRz5WPGjfO86WkayBmkP-1" source="qRz5WPGjfO86WkayBmkP-42" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.14;entryY=0;rounded=0;" target="qRz5WPGjfO86WkayBmkP-49">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="232" y="1827" />
+                <mxPoint x="232" y="1852" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
